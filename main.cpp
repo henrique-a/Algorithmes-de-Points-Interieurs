@@ -4,6 +4,7 @@
 
 using namespace arma;
 
+
 int main(int argc, const char * argv[]) {
     
     ProgrammeLineaire pl = ProgrammeLineaire(5,5);

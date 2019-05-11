@@ -17,8 +17,8 @@ private:
 
 public:
     ProgrammeLineaire(int n, int m);
-    void karmarkar(vec point_initial);
-    float solve(float ro=0.995);
+    vec karmarkar(vec point_initial);
+    float solve(vec point_initial, float ro=0.005, int max_interations=50);
     mat getA(void);
     vec getB(void);
     vec getC(void);
