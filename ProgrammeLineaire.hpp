@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <armadillo>
+#include <cstdlib>
 
 using namespace std;
 using namespace arma;
@@ -16,9 +17,7 @@ private:
 
 public:
     ProgrammeLineaire(mat A, vec b, vec c);
-    vec transformation_test(vec point_initial);
-    vec transformation_affine(vec x_0);
-    float solve(vec point_initial, float ro=0.005, int max_interations=50);
+    vec transformation_affine(vec x_0, float episilon, float gamma);
     mat getA(void);
     vec getB(void);
     vec getC(void);
