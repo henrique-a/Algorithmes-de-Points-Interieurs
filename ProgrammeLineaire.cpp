@@ -52,3 +52,20 @@ vec ProgrammeLineaire::transformation_affine(vec x_0, float episilon, float gamm
     } 
     return x;   
 }
+
+vec ProgrammeLineaire::karmarkar(float episilon, float gamma){
+    float ro = gamma * pow(n*(n-1), -0.5);
+    vec x_0 = ones(n) / n;
+    vec x = x_0;
+    vec x_hat = x_0;
+    while(dot(c, x) > episilon) {
+       mat D = diagmat(x);
+       vec c_hat = D*c;
+       mat A_hat = A*D;
+       mat B = join_cols(A_hat, ones(n).t());
+       vec d = -(eye(n,n) - B.t() * inv(B*B.t()) * B) * c_hat;
+       x_hat = x_hat + (ro / norm(d)) * d;
+       x = (D * x_hat) / ones(n).t() * D * x_hat; 
+    }
+    return x;
+}
