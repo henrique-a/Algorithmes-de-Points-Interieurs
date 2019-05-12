@@ -30,7 +30,7 @@ vec ProgrammeLineaire::transformation_affine(vec x_0, float episilon, float gamm
         mat D = diagmat(x); // Matrice de transformation affine (matrice diagonal)
         //std::cout << "D: " << std::endl << D << std::endl;
         // matrice de projection
-        mat P = -D*(eye(n,n) - D*A.t() * pinv(A*(D*D)*A.t()) * A*D)*D;
+        mat P = -D*(eye(n,n) - D*A.t() * inv(A*(D*D)*A.t()) * A*D)*D;
         //std::cout << "P: " << std::endl << P << std::endl;
         vec delta_x = P*c;
         //std::cout << "detal_x: " << std::endl << delta_x << std::endl;
