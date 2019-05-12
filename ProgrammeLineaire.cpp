@@ -56,27 +56,30 @@ float ProgrammeLineaire::solve(vec point_initial, float ro, int max_interations)
 }
 
 
-vec ProgrammeLineaire::transformation_affine(vec x_0){
+vec ProgrammeLineaire::transformation_affine(vec x_0, float episilon){
+    vec x_c = x_0
+    float deta_c = episilon*(c.t()*)
     float gamma = 0.995;
     int n = A.n_cols;
     mat D = diagmat(x_0); // Matrice de transformation affine
-    std::cout << "D: " << std::endl << D << std::endl;
-    mat P = -D*(eye(n,n) - D*A.t() * inv(A*(D*D)*A.t()) * A*D)*D;
-    std::cout << "P: " << std::endl << P << std::endl;
+//    std::cout << "D: " << std::endl << D << std::endl;
+    
+    mat P = -D*(eye(n,n) - D*A.t() * pinv(A*(D*D)*A.t()) * A*D)*D;
+  //  std::cout << "P: " << std::endl << P << std::endl;
     vec delta_x = P*c;
-    std::cout << "detal_x: " << std::endl << delta_x << std::endl;
+    //std::cout << "detal_x: " << std::endl << delta_x << std::endl;
     vec K = -x_0 / delta_x;
-    std::cout << "K: " << std::endl << K << std::endl;
+    //std::cout << "K: " << std::endl << K << std::endl;
     // enleve les negatives
     for (int i = 0; i < K.n_elem; i++) {
         if (K(i) < 0) {
             K(i) = datum::inf;
         }
     }
-    std::cout << "K: " << std::endl << K << std::endl;
+    //std::cout << "K: " << std::endl << K << std::endl;
 
     float alpha = gamma * K.min();
-    std::cout << "alpha: " << std::endl << alpha << std::endl;
+    //std::cout << "alpha: " << std::endl << alpha << std::endl;
     vec x_new = x_0 + alpha*delta_x;
     std::cout << "solution: " << std::endl << x_new << std::endl;
     return x_new;
